@@ -10,6 +10,20 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_DB: study_lab_db
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: root
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - uses: actions/checkout@v3
 
@@ -19,5 +33,8 @@ jobs:
           go-version: '1.21'
         id: go
 
+      - name: Run migrations
+        run: make migrateup
+
       - name: Test
-        run: go test -v -cover ./...
+        run: make test
