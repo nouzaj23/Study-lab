@@ -21,7 +21,7 @@ CREATE TABLE "answers" (
 
 CREATE TABLE "tags" (
                         "id" bigserial PRIMARY KEY,
-                        "name" varchar UNIQUE
+                        "name" varchar UNIQUE NOT NULL
 );
 
 CREATE INDEX ON "quizzes" ("name");
