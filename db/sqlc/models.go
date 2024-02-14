@@ -34,6 +34,6 @@ type Tag struct {
 }
 
 type TagsQuiz struct {
-	TagsID    int64 `json:"tags_id"`
-	QuizzesID int64 `json:"quizzes_id"`
+	TagID  int64 `json:"tag_id"`
+	QuizID int64 `json:"quiz_id"`
 }
