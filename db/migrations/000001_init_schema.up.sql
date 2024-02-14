@@ -35,12 +35,12 @@ ALTER TABLE "questions" ADD FOREIGN KEY ("quiz_id") REFERENCES "quizzes" ("id") 
 ALTER TABLE "answers" ADD FOREIGN KEY ("question_id") REFERENCES "questions" ("id") ON DELETE CASCADE;
 
 CREATE TABLE "tags_quizzes" (
-                                "tags_id" bigserial,
-                                "quizzes_id" bigserial,
-                                PRIMARY KEY ("tags_id", "quizzes_id")
+                                "tag_id" bigserial,
+                                "quiz_id" bigserial,
+                                PRIMARY KEY ("tag_id", "quiz_id")
 );
 
-ALTER TABLE "tags_quizzes" ADD FOREIGN KEY ("tags_id") REFERENCES "tags" ("id");
+ALTER TABLE "tags_quizzes" ADD FOREIGN KEY ("tag_id") REFERENCES "tags" ("id");
 
-ALTER TABLE "tags_quizzes" ADD FOREIGN KEY ("quizzes_id") REFERENCES "quizzes" ("id");
+ALTER TABLE "tags_quizzes" ADD FOREIGN KEY ("quiz_id") REFERENCES "quizzes" ("id");
 
