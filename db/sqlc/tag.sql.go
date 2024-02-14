@@ -56,7 +56,7 @@ func (q *Queries) GetTagsForQuiz(ctx context.Context, quizID int64) ([]Tag, erro
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Tag
+	items := []Tag{}
 	for rows.Next() {
 		var i Tag
 		if err := rows.Scan(&i.ID, &i.Name); err != nil {
@@ -91,7 +91,7 @@ func (q *Queries) ListTags(ctx context.Context, arg ListTagsParams) ([]Tag, erro
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Tag
+	items := []Tag{}
 	for rows.Next() {
 		var i Tag
 		if err := rows.Scan(&i.ID, &i.Name); err != nil {

@@ -63,7 +63,7 @@ func (q *Queries) ListQuizzes(ctx context.Context, arg ListQuizzesParams) ([]Qui
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Quiz
+	items := []Quiz{}
 	for rows.Next() {
 		var i Quiz
 		if err := rows.Scan(&i.ID, &i.Name, &i.CreatedAt); err != nil {
