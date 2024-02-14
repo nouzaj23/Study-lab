@@ -19,6 +19,11 @@ CREATE TABLE "answers" (
                            "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
+CREATE TABLE "tags" (
+                        "id" bigserial PRIMARY KEY,
+                        "name" varchar UNIQUE
+);
+
 CREATE INDEX ON "quizzes" ("name");
 
 CREATE INDEX ON "questions" ("quiz_id");
@@ -28,3 +33,14 @@ CREATE INDEX ON "answers" ("question_id");
 ALTER TABLE "questions" ADD FOREIGN KEY ("quiz_id") REFERENCES "quizzes" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "answers" ADD FOREIGN KEY ("question_id") REFERENCES "questions" ("id") ON DELETE CASCADE;
+
+CREATE TABLE "tags_quizzes" (
+                                "tags_id" bigserial,
+                                "quizzes_id" bigserial,
+                                PRIMARY KEY ("tags_id", "quizzes_id")
+);
+
+ALTER TABLE "tags_quizzes" ADD FOREIGN KEY ("tags_id") REFERENCES "tags" ("id");
+
+ALTER TABLE "tags_quizzes" ADD FOREIGN KEY ("quizzes_id") REFERENCES "quizzes" ("id");
+

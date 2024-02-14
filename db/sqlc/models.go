@@ -3,6 +3,7 @@
 package db
 
 import (
+	"database/sql"
 	"time"
 )
 
@@ -25,4 +26,14 @@ type Quiz struct {
 	ID        int64     `json:"id"`
 	Name      string    `json:"name"`
 	CreatedAt time.Time `json:"created_at"`
+}
+
+type Tag struct {
+	ID   int64          `json:"id"`
+	Name sql.NullString `json:"name"`
+}
+
+type TagsQuiz struct {
+	TagsID    int64 `json:"tags_id"`
+	QuizzesID int64 `json:"quizzes_id"`
 }
