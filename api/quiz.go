@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	db "study_lab/db/sqlc"
 	"time"
 )
 
@@ -64,14 +65,16 @@ func (server *Server) getQuiz(ctx *gin.Context) {
 		ID:        quiz.ID,
 		Name:      quiz.Name,
 		CreatedAt: quiz.CreatedAt,
-		TagIds: func() []int64 {
-			ids := make([]int64, 0, len(tags))
-			for _, tag := range tags {
-				ids = append(ids, tag.ID)
-			}
-			return ids
-		}(),
+		TagIds:    extractTagIds(tags),
 	}
 
 	ctx.JSON(http.StatusOK, res)
+}
+
+func extractTagIds(tags []db.Tag) []int64 {
+	ids := make([]int64, 0, len(tags))
+	for _, tag := range tags {
+		ids = append(ids, tag.ID)
+	}
+	return ids
 }
