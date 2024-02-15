@@ -30,6 +30,8 @@ CREATE INDEX ON "questions" ("quiz_id");
 
 CREATE INDEX ON "answers" ("question_id");
 
+CREATE INDEX ON "tags" ("name");
+
 ALTER TABLE "questions" ADD FOREIGN KEY ("quiz_id") REFERENCES "quizzes" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "answers" ADD FOREIGN KEY ("question_id") REFERENCES "questions" ("id") ON DELETE CASCADE;
