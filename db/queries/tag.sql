@@ -1,6 +1,8 @@
 -- name: CreateTag :one
-INSERT INTO tags (name) VALUES ($1)
-ON CONFLICT (name) DO NOTHING
+INSERT INTO tags (name)
+VALUES ($1)
+ON CONFLICT (name) DO UPDATE
+    SET name = EXCLUDED.name
 RETURNING *;
 
 -- name: AddTagToQuiz :exec
