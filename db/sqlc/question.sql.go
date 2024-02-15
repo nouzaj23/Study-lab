@@ -61,6 +61,40 @@ func (q *Queries) GetQuestion(ctx context.Context, id int64) (Question, error) {
 	return i, err
 }
 
+const listAllQuestions = `-- name: ListAllQuestions :many
+SELECT id, title, quiz_id, created_at from questions
+Where quiz_id = $1
+ORDER BY id
+`
+
+func (q *Queries) ListAllQuestions(ctx context.Context, quizID int64) ([]Question, error) {
+	rows, err := q.db.QueryContext(ctx, listAllQuestions, quizID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Question{}
+	for rows.Next() {
+		var i Question
+		if err := rows.Scan(
+			&i.ID,
+			&i.Title,
+			&i.QuizID,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listQuestions = `-- name: ListQuestions :many
 SELECT id, title, quiz_id, created_at from questions
 WHERE quiz_id = $1

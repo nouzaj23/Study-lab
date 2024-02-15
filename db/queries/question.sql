@@ -18,6 +18,11 @@ ORDER BY id
 LIMIT $2
 OFFSET $3;
 
+-- name: ListAllQuestions :many
+SELECT * from questions
+Where quiz_id = $1
+ORDER BY id;
+
 -- name: UpdateQuestion :one
 UPDATE questions
 SET title = $2
