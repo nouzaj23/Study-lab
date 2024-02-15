@@ -21,7 +21,7 @@ func (q *Queries) AddTagToQuiz(ctx context.Context, arg AddTagToQuizParams) erro
 	return err
 }
 
-const createTag = `-- name: CreateTag :one
+const createTag = `-- name: CreateOrGetTag :one
 INSERT INTO tags (name)
 VALUES ($1)
 ON CONFLICT (name) DO UPDATE
@@ -29,7 +29,7 @@ ON CONFLICT (name) DO UPDATE
 RETURNING id, name
 `
 
-func (q *Queries) CreateTag(ctx context.Context, name string) (Tag, error) {
+func (q *Queries) CreateOrGetTag(ctx context.Context, name string) (Tag, error) {
 	row := q.db.QueryRowContext(ctx, createTag, name)
 	var i Tag
 	err := row.Scan(&i.ID, &i.Name)

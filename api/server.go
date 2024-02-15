@@ -19,6 +19,9 @@ func NewServer(store *db.Store) *Server {
 	router.PATCH("/quizzes/:id", server.updateQuiz)
 	router.DELETE("/quizzes/:id", server.deleteQuiz)
 
+	router.POST("/quizzes/:id/tags", server.addTagToQuiz)
+	router.DELETE("/quizzes/:id/tags", server.removeTagFromQuiz)
+
 	router.POST("/quizzes/:id/questions", server.addQuestion)
 	router.GET("/quizzes/:id/questions", server.getQuestions)
 	router.PATCH("/questions/:id", server.updateQuestion)

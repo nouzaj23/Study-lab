@@ -1,4 +1,4 @@
--- name: CreateTag :one
+-- name: CreateOrGetTag :one
 INSERT INTO tags (name)
 VALUES ($1)
 ON CONFLICT (name) DO UPDATE

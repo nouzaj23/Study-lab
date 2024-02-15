@@ -41,7 +41,7 @@ func (server *Server) createQuiz(ctx *gin.Context) {
 
 		for i, tagReq := range req.Tags {
 			var tag db.Tag
-			tag, err = queries.CreateTag(ctx, tagReq.Name)
+			tag, err = queries.CreateOrGetTag(ctx, tagReq.Name)
 			if err != nil {
 				return err
 			}
