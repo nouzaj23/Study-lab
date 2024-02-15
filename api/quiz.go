@@ -39,7 +39,7 @@ func (server *Server) createQuiz(ctx *gin.Context) {
 			return err
 		}
 
-		for _, tagReq := range req.Tags {
+		for i, tagReq := range req.Tags {
 			var tag db.Tag
 			tag, err = queries.CreateTag(ctx, tagReq.Name)
 			if err != nil {
@@ -53,7 +53,7 @@ func (server *Server) createQuiz(ctx *gin.Context) {
 			if err != nil {
 				return err
 			}
-			tags = append(tags, tag)
+			tags[i] = tag
 		}
 		return nil
 	})
