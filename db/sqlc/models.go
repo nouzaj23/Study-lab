@@ -3,7 +3,6 @@
 package db
 
 import (
-	"database/sql"
 	"time"
 )
 
@@ -29,8 +28,8 @@ type Quiz struct {
 }
 
 type Tag struct {
-	ID   int64          `json:"id"`
-	Name sql.NullString `json:"name"`
+	ID   int64  `json:"id"`
+	Name string `json:"name"`
 }
 
 type TagsQuiz struct {

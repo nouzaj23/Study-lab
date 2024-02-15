@@ -5,7 +5,6 @@ package db
 
 import (
 	"context"
-	"database/sql"
 )
 
 const addTagToQuiz = `-- name: AddTagToQuiz :exec
@@ -28,7 +27,7 @@ ON CONFLICT (name) DO NOTHING
 RETURNING id, name
 `
 
-func (q *Queries) CreateTag(ctx context.Context, name sql.NullString) (Tag, error) {
+func (q *Queries) CreateTag(ctx context.Context, name string) (Tag, error) {
 	row := q.db.QueryRowContext(ctx, createTag, name)
 	var i Tag
 	err := row.Scan(&i.ID, &i.Name)
