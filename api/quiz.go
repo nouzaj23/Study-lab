@@ -14,9 +14,13 @@ type quizResponse struct {
 	Tags      []db.Tag  `json:"tags"`
 }
 
+type tagRequest struct {
+	Name string `json:"name"`
+}
+
 type createQuizRequest struct {
-	Name string   `json:"name" binding:"required"`
-	Tags []string `json:"tags"`
+	Name string       `json:"name" binding:"required"`
+	Tags []tagRequest `json:"tags"`
 }
 
 func (server *Server) createQuiz(ctx *gin.Context) {
@@ -35,9 +39,9 @@ func (server *Server) createQuiz(ctx *gin.Context) {
 			return err
 		}
 
-		for _, tagName := range req.Tags {
+		for _, tagReq := range req.Tags {
 			var tag db.Tag
-			tag, err = queries.CreateTag(ctx, tagName)
+			tag, err = queries.CreateTag(ctx, tagReq.Name)
 			if err != nil {
 				return err
 			}
