@@ -126,6 +126,28 @@ func (server *Server) updateQuiz(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, res)
 }
 
+type deleteQuizRequestURI struct {
+	ID int64 `uri:"id" binding:"required,min=1"`
+}
+
+func (server *Server) deleteQuiz(ctx *gin.Context) {
+	var req deleteQuizRequestURI
+	if err := ctx.ShouldBindUri(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	id := req.ID
+
+	err := server.store.DeleteQuiz(ctx, id)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	ctx.Status(http.StatusNoContent)
+}
+
 func extractTagIds(tags []db.Tag) []int64 {
 	ids := make([]int64, 0, len(tags))
 	for _, tag := range tags {
