@@ -40,7 +40,7 @@ CREATE TABLE "tags_quizzes" (
                                 PRIMARY KEY ("tag_id", "quiz_id")
 );
 
-ALTER TABLE "tags_quizzes" ADD FOREIGN KEY ("tag_id") REFERENCES "tags" ("id");
+ALTER TABLE "tags_quizzes" ADD FOREIGN KEY ("tag_id") REFERENCES "tags" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "tags_quizzes" ADD FOREIGN KEY ("quiz_id") REFERENCES "quizzes" ("id");
+ALTER TABLE "tags_quizzes" ADD FOREIGN KEY ("quiz_id") REFERENCES "quizzes" ("id") ON DELETE CASCADE;
 
