@@ -27,6 +27,11 @@ func NewServer(store *db.Store) *Server {
 	router.PATCH("/questions/:id", server.updateQuestion)
 	router.DELETE("/questions/:id", server.deleteQuestion)
 
+	router.POST("/questions/:id/answers", server.addAnswer)
+	router.GET("/questions/:id/answers", server.getAnswers)
+	router.PATCH("/answers/:id", server.updateAnswer)
+	router.DELETE("/answers/:id", server.deleteAnswer)
+
 	server.router = router
 	return server
 }
